@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ReleCloud - Destinos Espaciales
+{% endblock %}
+
+{% block content %}
+<div class="destinations-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-3 space-title destinations-title">🌌 Destinos Cósmicos</h1>
+                <p class="lead space-subtitle destinations-subtitle">
+                    Si puedes imaginarlo, ¡nosotros te llevamos hasta allí! Descubre nuestros destinos confirmados en el cosmos.
+                </p>
+                <!-- Indicador de planetas -->
+                <div class="planet-counter">
+                    <span class="planet-icon">🪐</span>
+                    <span class="counter-text">{{ destinations|length }} Destinos Disponibles</span>
+                    <span class="planet-icon">🌟</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container destinations-container">
+    <div class="row">
+        <div class="col-12">
+            <div class="destinations-grid">
+                {% for destination in destinations %}
+                <div class="destination-card">
+                    <a href="{% url 'destination_detail' destination.id %}" class="destination-link">
+                        <div class="destination-content">
+                            <!-- Icono del destino -->
+                            <div class="destination-icon">
+                                {% if 'Mars' in destination.name or 'mars' in destination.name %}
+                                    🔴
+                                {% elif 'Moon' in destination.name or 'moon' in destination.name %}
+                                    🌙
+                                {% elif 'Jupiter' in destination.name or 'jupiter' in destination.name %}
+                                    🪐
+                                {% elif 'Saturn' in destination.name or 'saturn' in destination.name %}
+                                    🪐
+                                {% elif 'Star' in destination.name or 'star' in destination.name %}
+                                    ⭐
+                                {% elif 'Galaxy' in destination.name or 'galaxy' in destination.name %}
+                                    🌌
+                                {% elif 'Nebula' in destination.name or 'nebula' in destination.name %}
+                                    🌠
+                                {% else %}
+                                    🚀
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Nombre del destino -->
+                            <h3 class="destination-name">{{ destination.name }}</h3>
+                            
+                            <!-- Descripción corta -->
+                            <p class="destination-description">
+                                {% if destination.description %}
+                                    {{ destination.description|truncatewords:15 }}
+                                {% else %}
+                                    Un destino extraordinario que te llevará más allá de tus sueños más salvajes.
+                                {% endif %}
+                            </p>
+                            
+                            <!-- Indicador de cruceros -->
+                            <div class="cruise-indicator">
+                                <span class="cruise-count">{{ destination.cruises.count }}</span>
+                                <span class="cruise-text">crucero{{ destination.cruises.count|pluralize:"s" }} disponible{{ destination.cruises.count|pluralize:"s" }}</span>
+                            </div>
+                            
+                            <!-- Botón de explorar -->
+                            <div class="explore-button">
+                                <span>Explorar Destino</span>
+                                <i class="arrow-icon">→</i>
+                            </div>
+                        </div>
+                        
+                        <!-- Efectos visuales -->
+                        <div class="card-effects">
+                            <div class="cosmic-border"></div>
+                            <div class="hover-glow"></div>
+                            <div class="floating-stars">
+                                <div class="star"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <div class="empty-state">
+                        <div class="empty-icon">🌌</div>
+                        <h3 class="empty-title">No hay destinos disponibles</h3>
+                        <p class="empty-text">Los exploradores espaciales están preparando nuevos destinos cósmicos para ti.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección de llamada a la acción -->
+<div class="cta-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="cta-title">¿Listo para tu Aventura Espacial?</h2>
+                <p class="cta-text">Solicita información sobre nuestros viajes cósmicos</p>
+                <a href="{% url 'info_request' %}" class="btn btn-space-primary btn-lg">
+                    <span>Solicitar Información</span>
+                    <i class="rocket-icon">🚀</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

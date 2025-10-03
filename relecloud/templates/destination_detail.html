@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ReleCloud - {{ destination.name }}
+{% endblock %}
+
+{% block content %}
+<div class="destination-detail-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="destination-header">
+                    <!-- Botón de regreso -->
+                    <a href="{% url 'destinations' %}" class="back-button">
+                        <span class="back-arrow">←</span>
+                        <span>Volver a Destinos</span>
+                    </a>
+                    
+                    <!-- Título del destino -->
+                    <div class="destination-title-section">
+                        <div class="destination-main-icon">
+                            {% if 'Mars' in destination.name or 'mars' in destination.name %}
+                                🔴
+                            {% elif 'Moon' in destination.name or 'moon' in destination.name %}
+                                🌙
+                            {% elif 'Jupiter' in destination.name or 'jupiter' in destination.name %}
+                                🪐
+                            {% elif 'Saturn' in destination.name or 'saturn' in destination.name %}
+                                🪐
+                            {% elif 'Star' in destination.name or 'star' in destination.name %}
+                                ⭐
+                            {% elif 'Galaxy' in destination.name or 'galaxy' in destination.name %}
+                                🌌
+                            {% elif 'Nebula' in destination.name or 'nebula' in destination.name %}
+                                🌠
+                            {% else %}
+                                🚀
+                            {% endif %}
+                        </div>
+                        <h1 class="display-2 destination-name">{{ destination.name }}</h1>
+                        <div class="destination-badge">Destino Espacial Confirmado</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container destination-detail-content">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Descripción del destino -->
+            <div class="destination-description-card">
+                <h2 class="section-title">🌌 Descripción del Destino</h2>
+                <div class="description-content">
+                    {% if destination.description %}
+                        <p class="destination-text">{{ destination.description }}</p>
+                    {% else %}
+                        <p class="destination-text">
+                            Bienvenido a {{ destination.name }}, uno de los destinos más extraordinarios de nuestro catálogo cósmico. 
+                            Este lugar te ofrecerá una experiencia única que desafiará todos tus sentidos y te conectará con la inmensidad del universo.
+                        </p>
+                        <p class="destination-text">
+                            Nuestros expertos en turismo espacial han seleccionado cuidadosamente este destino por sus características únicas 
+                            y las oportunidades incomparables de exploración que ofrece.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Lista de cruceros -->
+            <div class="cruises-section">
+                <h2 class="section-title">🚀 Cruceros Disponibles</h2>
+                <p class="cruises-intro">Puedes explorar {{ destination.name }} en los siguientes cruceros espaciales:</p>
+                
+                <div class="cruises-grid">
+                    {% for cruise in destination.cruises.all %}
+                    <div class="cruise-card">
+                        <a href="{% url 'cruise_detail' cruise.id %}" class="cruise-link">
+                            <div class="cruise-content">
+                                <div class="cruise-icon">🛸</div>
+                                <h3 class="cruise-name">{{ cruise.name }}</h3>
+                                <div class="cruise-details">
+                                    {% if cruise.duration %}
+                                        <div class="cruise-detail-item">
+                                            <span class="detail-icon">⏱️</span>
+                                            <span>{{ cruise.duration }} días</span>
+                                        </div>
+                                    {% endif %}
+                                    {% if cruise.price %}
+                                        <div class="cruise-detail-item">
+                                            <span class="detail-icon">💰</span>
+                                            <span>${{ cruise.price }}</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="cruise-button">
+                                    <span>Ver Detalles</span>
+                                    <span class="button-arrow">→</span>
+                                </div>
+                            </div>
+                            <div class="cruise-hover-effect"></div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div class="no-cruises-message">
+                        <div class="no-cruises-icon">🌌</div>
+                        <h4>Próximamente</h4>
+                        <p>Estamos preparando cruceros extraordinarios para este destino. ¡Mantente atento!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Panel lateral de información -->
+            <div class="info-sidebar">
+                <!-- Estadísticas del destino -->
+                <div class="stats-card">
+                    <h3 class="stats-title">📊 Información del Destino</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">{{ destination.cruises.count }}</div>
+                            <div class="stat-label">Crucero{{ destination.cruises.count|pluralize:"s" }}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">⭐⭐⭐⭐⭐</div>
+                            <div class="stat-label">Calificación</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">∞</div>
+                            <div class="stat-label">Aventuras</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to action -->
+                <div class="cta-sidebar-card">
+                    <h3 class="cta-sidebar-title">🚀 ¿Listo para Viajar?</h3>
+                    <p class="cta-sidebar-text">Solicita información sobre este destino extraordinario</p>
+                    <a href="{% url 'info_request' %}" class="btn btn-space-primary btn-block">
+                        Solicitar Información
+                    </a>
+                </div>
+
+                <!-- Destinos relacionados -->
+                <div class="related-destinations">
+                    <h3 class="related-title">🌟 Otros Destinos</h3>
+                    <a href="{% url 'destinations' %}" class="btn btn-outline-space">
+                        Ver Todos los Destinos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

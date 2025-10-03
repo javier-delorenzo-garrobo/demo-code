@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'res/css/theme.css' %}?v=7.0" />
+    <title>
+        {% block title %}
+        ReleCloud - Expand your horizons
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-translucent-secondary">
+        <img src="{% static 'res/img/small-logo.png' %}" width="60" height="auto" alt="Rocket ship logo" />
+        <a class="navbar-brand tk-elevon" href="{% url 'index' %}">&nbsp; ReleCloud Space Tourism</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'info_request' %}">Request Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'destinations' %}">Destinations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                {% comment %} <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li> {% endcomment %}
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main">
+        <!-- Sección Hero mejorada con efectos espaciales -->
+        <div class="jumbotron main-header space-hero" style="background-image: url('{% static 'res/img/cosmos-db.jpeg' %}'); background-size: cover; background-position: center;">
+            <!-- Overlay espacial -->
+            <div class="space-overlay"></div>
+            
+            <!-- Elementos flotantes espaciales -->
+            <div class="floating-elements">
+                <div class="planet planet-1"></div>
+                <div class="planet planet-2"></div>
+                <div class="asteroid asteroid-1"></div>
+                <div class="asteroid asteroid-2"></div>
+                <div class="asteroid asteroid-3"></div>
+            </div>
+            
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <div class="logo-container">
+                            <img src="{% static 'res/img/bit_cosmos.png' %}" class="img img-fluid main-logo" alt="ReleCloud Logo" />
+                            <!-- Efecto de brillo alrededor del logo -->
+                            <div class="logo-glow"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="hero-content">
+                            <h1 class="display-2 font-weight-bold space-title">Expand your horizons</h1>
+                            <p class="lead space-subtitle">Embarca en la aventura más extraordinaria de tu vida</p>
+                            <!-- Botón call-to-action espacial -->
+                            <a href="{% url 'destinations' %}" class="btn btn-space-primary btn-lg mt-3">
+                                <span>Explorar Destinos</span>
+                                <i class="rocket-icon">🚀</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                <p>{{ message }}</p>
+            </div>   
+            {% endfor %}
+        {% endif %}
+
+        <div class="container main-content">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="astronaut-container">
+                        <img class="img-fluid astronaut-image" src="{% static 'res/img/astronaut.jpeg' %}" alt="Astronaut exploring the cosmos" />
+                        <!-- Efecto de marco espacial -->
+                        <div class="space-frame"></div>
+                        <!-- Partículas flotantes alrededor de la imagen -->
+                        <div class="floating-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="content-section">
+                        {% block content %}
+                        <div class="welcome-content">
+                            <h2 class="display-4 space-heading">Tu Aventura Espacial Comienza Aquí</h2>
+                            <p class="space-text">
+                                Sumérgete en una experiencia única que desafía los límites de la imaginación. 
+                                ReleCloud te lleva más allá de las estrellas, donde cada viaje es una nueva oportunidad 
+                                de descubrir los misterios del cosmos.
+                            </p>
+                            <p class="space-text">
+                                Desde las nebulosas más coloridas hasta las galaxias más lejanas, nuestros destinos 
+                                espaciales ofrecen vistas espectaculares y experiencias que cambiarán tu perspectiva 
+                                del universo para siempre.
+                            </p>
+                            
+                            <!-- Características destacadas -->
+                            <div class="features-grid mt-4">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌌</div>
+                                    <h5>Destinos Únicos</h5>
+                                    <p>Explora galaxias inexploradas</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🚀</div>
+                                    <h5>Tecnología Avanzada</h5>
+                                    <p>Naves de última generación</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">⭐</div>
+                                    <h5>Experiencias Únicas</h5>
+                                    <p>Momentos inolvidables</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="space-footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer-section">
+                            <h5 class="footer-title">🚀 ReleCloud Space Tourism</h5>
+                            <p class="footer-text">Expandiendo horizontes más allá de las estrellas</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-section">
+                            <h5 class="footer-title">🌌 Navegación</h5>
+                            <ul class="footer-links">
+                                <li><a href="{% url 'index' %}">Inicio</a></li>
+                                <li><a href="{% url 'destinations' %}">Destinos</a></li>
+                                <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
+                                <li><a href="{% url 'info_request' %}">Contacto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-section">
+                            <h5 class="footer-title">⭐ Proyecto</h5>
+                            <p class="footer-text">Desarrollado por:</p>
+                            <p class="footer-author">Javier de Lorenzo 3ºB</p>
+                            <p class="footer-tech">Django • Python • CSS Espacial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="footer-copyright">
+                            © 2025 ReleCloud Space Tourism - Tu aventura espacial comienza aquí 🌠
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
